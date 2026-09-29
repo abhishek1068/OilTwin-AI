@@ -2422,7 +2422,423 @@ nav button:hover {
         font-size: 17px;
     }
 }
+/* =========================================================
+   RESULT EXPLANATION / JURY GUIDE
+========================================================= */
 
+.result-explainer {
+    margin-top: 28px;
+    padding: 30px;
+
+    border: 1px solid var(--line);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.025),
+            rgba(255,255,255,.01)
+        );
+}
+
+
+/* -------------------------
+   HEADING
+------------------------- */
+
+.explainer-heading {
+    display: grid;
+
+    grid-template-columns:
+        minmax(280px, .8fr)
+        minmax(300px, 1.2fr);
+
+    gap: 40px;
+
+    padding-bottom: 24px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.section-kicker {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--amber);
+
+    font-family: var(--mono);
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+}
+
+.explainer-heading h2 {
+    margin: 0;
+
+    color: var(--cream);
+
+    font-family: var(--heading);
+
+    font-size: 32px;
+
+    line-height: 1;
+}
+
+.explainer-heading p {
+    margin: 0;
+
+    align-self: end;
+
+    color: var(--muted);
+
+    font-family: var(--body);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* -------------------------
+   PARAMETER CARDS
+------------------------- */
+
+.parameter-guide {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 1px;
+
+    margin-top: 24px;
+
+    background: var(--line);
+
+    border: 1px solid var(--line);
+}
+
+.parameter-card {
+    min-height: 170px;
+
+    padding: 22px;
+
+    background: #0d1316;
+}
+
+.parameter-code {
+    display: inline-block;
+
+    margin-bottom: 14px;
+
+    padding: 5px 8px;
+
+    color: var(--amber);
+
+    border: 1px solid rgba(229,169,58,.35);
+
+    font-family: var(--mono);
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+.parameter-card h3 {
+    margin: 0 0 10px;
+
+    color: var(--cream);
+
+    font-family: var(--heading);
+
+    font-size: 19px;
+
+    line-height: 1.1;
+}
+
+.parameter-card p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-family: var(--body);
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+/* -------------------------
+   SCORE
+------------------------- */
+
+.score-explanation {
+    display: grid;
+
+    grid-template-columns:
+        250px
+        1fr;
+
+    margin-top: 24px;
+
+    border: 1px solid rgba(229,169,58,.35);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(229,169,58,.07),
+            rgba(229,169,58,.015)
+        );
+}
+
+.score-number {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    border-right: 1px solid rgba(229,169,58,.25);
+}
+
+.score-number span {
+    color: var(--muted);
+
+    font-family: var(--mono);
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+}
+
+.score-number strong {
+    margin-top: 5px;
+
+    color: var(--amber);
+
+    font-family: var(--heading);
+
+    font-size: 26px;
+
+    line-height: 1;
+}
+
+.score-scale {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 25px;
+
+    padding-top: 10px;
+
+    border-top: 1px solid var(--line);
+
+    color: var(--muted);
+
+    font-family: var(--mono);
+
+    font-size: 8px;
+}
+
+.score-scale span {
+    color: #657178;
+
+    font-size: 7px;
+}
+
+.score-content {
+    padding: 30px;
+}
+
+.score-content h3 {
+    margin: 0 0 12px;
+
+    color: var(--cream);
+
+    font-family: var(--heading);
+
+    font-size: 23px;
+}
+
+.score-content p {
+    margin: 0;
+
+    max-width: 850px;
+
+    color: var(--muted);
+
+    font-family: var(--body);
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+.score-content strong {
+    color: var(--cream);
+}
+
+.score-factors {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin: 20px 0;
+}
+
+.score-factors div {
+    padding: 14px;
+
+    border: 1px solid var(--line);
+
+    background: rgba(0,0,0,.15);
+}
+
+.score-factors strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--amber);
+
+    font-family: var(--heading);
+
+    font-size: 15px;
+}
+
+.score-factors span {
+    color: var(--muted);
+
+    font-family: var(--body);
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+.score-note {
+    padding-top: 16px;
+
+    border-top: 1px solid var(--line);
+
+    font-size: 10px !important;
+}
+
+
+/* -------------------------
+   GRAPH GUIDE
+------------------------- */
+
+.graph-guide {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+
+    margin-top: 24px;
+}
+
+.graph-guide > div {
+    padding: 22px;
+
+    border-left: 2px solid var(--amber);
+
+    background: #0d1316;
+}
+
+.guide-number {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--amber);
+
+    font-family: var(--mono);
+
+    font-size: 9px;
+}
+
+.graph-guide h3 {
+    margin: 0 0 8px;
+
+    color: var(--cream);
+
+    font-family: var(--heading);
+
+    font-size: 20px;
+}
+
+.graph-guide p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-family: var(--body);
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+/* -------------------------
+   MOBILE
+------------------------- */
+
+@media (max-width: 850px) {
+
+    .explainer-heading {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .parameter-guide {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .score-explanation {
+        grid-template-columns: 1fr;
+    }
+
+    .score-number {
+        border-right: none;
+        border-bottom: 1px solid rgba(229,169,58,.25);
+    }
+
+    .score-factors {
+        grid-template-columns: 1fr;
+    }
+
+    .graph-guide {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .result-explainer {
+        padding: 20px;
+    }
+
+    .parameter-guide {
+        grid-template-columns: 1fr;
+    }
+
+}
 </style>
 
 </head>
@@ -3579,6 +3995,383 @@ nav button:hover {
                     </div>
 
                 </div>
+                            <!-- HOW TO READ RESULTS -->
+
+            <section class="result-explainer">
+
+                <div class="explainer-heading">
+
+                    <div>
+                        <span class="section-kicker">
+                            INTERPRETATION GUIDE
+                        </span>
+
+                        <h2>
+                            HOW TO READ THIS RESULT
+                        </h2>
+                    </div>
+
+                    <p>
+                        The digital twin combines thermal response,
+                        steam usage, production response and sucker
+                        rod pump performance to generate one integrated
+                        operating recommendation.
+                    </p>
+
+                </div>
+
+
+                <!-- PARAMETER GUIDE -->
+
+                <div class="parameter-guide">
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            CSS
+                        </span>
+
+                        <h3>
+                            Cyclic Steam Stimulation
+                        </h3>
+
+                        <p>
+                            Steam is injected into the heavy-oil reservoir
+                            to increase temperature and reduce oil viscosity.
+                            The well is then allowed to soak before production
+                            resumes.
+                        </p>
+
+                    </div>
+
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            SRP
+                        </span>
+
+                        <h3>
+                            Sucker Rod Pump
+                        </h3>
+
+                        <p>
+                            A mechanical artificial-lift system used to bring
+                            produced oil from the well to the surface.
+                        </p>
+
+                    </div>
+
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            SPM
+                        </span>
+
+                        <h3>
+                            Strokes Per Minute
+                        </h3>
+
+                        <p>
+                            The number of complete pumping strokes performed
+                            by the sucker rod pump each minute.
+                        </p>
+
+                    </div>
+
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            BOPD
+                        </span>
+
+                        <h3>
+                            Barrels of Oil Per Day
+                        </h3>
+
+                        <p>
+                            Daily oil production rate. It is used to compare
+                            the current production condition with the predicted
+                            post-CSS production response.
+                        </p>
+
+                    </div>
+
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            API
+                        </span>
+
+                        <h3>
+                            American Petroleum Institute Gravity
+                        </h3>
+
+                        <p>
+                            A standard measure of crude-oil density. Lower API
+                            gravity generally represents heavier crude oil.
+                        </p>
+
+                    </div>
+
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            cP
+                        </span>
+
+                        <h3>
+                            Centipoise
+                        </h3>
+
+                        <p>
+                            The viscosity unit used by the digital twin to
+                            represent how strongly the heavy oil resists flow.
+                        </p>
+
+                    </div>
+
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            SOR
+                        </span>
+
+                        <h3>
+                            Steam-Oil Ratio
+                        </h3>
+
+                        <p>
+                            A measure of steam consumed relative to oil
+                            produced. Lower steam consumption for a given
+                            production response indicates better steam
+                            utilization in the model.
+                        </p>
+
+                    </div>
+
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            PUMP EFF.
+                        </span>
+
+                        <h3>
+                            Pump Efficiency
+                        </h3>
+
+                        <p>
+                            The estimated effectiveness of the sucker rod pump
+                            in converting its available pumping capacity into
+                            useful fluid production.
+                        </p>
+
+                    </div>
+
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            ROD LOAD
+                        </span>
+
+                        <h3>
+                            Rod-Load Risk
+                        </h3>
+
+                        <p>
+                            A prototype risk indicator based on rod loading,
+                            pumping speed, stroke length, viscosity and pump
+                            efficiency. Higher values indicate a higher
+                            modeled mechanical-risk condition.
+                        </p>
+
+                    </div>
+
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            SOAK
+                        </span>
+
+                        <h3>
+                            Soak Period
+                        </h3>
+
+                        <p>
+                            The time after steam injection during which the
+                            well remains shut in so heat can redistribute
+                            through the heated reservoir zone before pumping
+                            resumes.
+                        </p>
+
+                    </div>
+
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            STEAM RATE
+                        </span>
+
+                        <h3>
+                            Steam Injection Rate
+                        </h3>
+
+                        <p>
+                            The modeled amount of steam supplied to the well
+                            per day during the injection stage.
+                        </p>
+
+                    </div>
+
+
+                    <div class="parameter-card">
+
+                        <span class="parameter-code">
+                            INJECTION PRESSURE
+                        </span>
+
+                        <h3>
+                            Steam Injection Pressure
+                        </h3>
+
+                        <p>
+                            The pressure associated with the modeled steam
+                            injection stage.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SCORE EXPLANATION -->
+
+                <div class="score-explanation">
+
+                    <div class="score-number">
+
+                        <span>
+                            INTEGRATED
+                        </span>
+
+                        <strong>
+                            OPTIMIZATION SCORE
+                        </strong>
+
+                        <div class="score-scale">
+                            0
+                            <span>MODEL SCORE</span>
+                            100
+                        </div>
+
+                    </div>
+
+
+                    <div class="score-content">
+
+                        <h3>
+                            What does the optimization score mean?
+                        </h3>
+
+                        <p>
+                            The optimization score is a single
+                            <strong>0–100 prototype index</strong> used to
+                            summarize how the selected CSS and SRP operating
+                            conditions perform together in the digital twin.
+                        </p>
+
+                        <div class="score-factors">
+
+                            <div>
+                                <strong>Production response</strong>
+                                <span>
+                                    Expected increase in oil production
+                                </span>
+                            </div>
+
+                            <div>
+                                <strong>Energy efficiency</strong>
+                                <span>
+                                    Steam consumption and modeled efficiency
+                                </span>
+                            </div>
+
+                            <div>
+                                <strong>Mechanical risk</strong>
+                                <span>
+                                    Modeled sucker-rod and pump loading risk
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <p class="score-note">
+                            A higher score means the model found a more
+                            balanced combination of production response,
+                            energy use and mechanical risk within the
+                            prototype's defined search space. It is
+                            <strong>not a field-calibrated safety factor,
+                            production guarantee or industry-standard score.</strong>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- GRAPH EXPLANATION -->
+
+                <div class="graph-guide">
+
+                    <div>
+
+                        <span class="guide-number">
+                            01
+                        </span>
+
+                        <h3>
+                            Thermal / Viscosity Response
+                        </h3>
+
+                        <p>
+                            This graph shows how the modeled oil temperature
+                            changes through the CSS cycle and how the estimated
+                            heavy-oil viscosity responds to heating.
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="guide-number">
+                            02
+                        </span>
+
+                        <h3>
+                            Production Response
+                        </h3>
+
+                        <p>
+                            This graph shows the modeled production decline
+                            after stimulation and compares it with the
+                            production cut-off selected for the cycle.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
 
             </div>
 
