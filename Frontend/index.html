@@ -1677,27 +1677,43 @@ nav button:hover {
 
 
 .equation {
+    padding: 20px 26px;
+    display: flex;
+    align-items: center;
 
-    padding:
-        20px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
+    /* Mathematical typography */
     font-family:
-        var(--mono);
+        "Cambria Math",
+        "STIX Two Math",
+        "Times New Roman",
+        Georgia,
+        serif;
 
-    color:
-        var(--amber);
+    color: var(--cream);
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.5;
 
-    font-size:
-        13px;
+    white-space: normal;
+    font-style: normal;
 
-    line-height:
-        1.8;
+    /* subtle mathematical presentation */
+    text-rendering: geometricPrecision;
+}
+
+/* Proper mathematical subscripts */
+.equation sub {
+    font-size: 0.62em;
+    vertical-align: -0.35em;
+    line-height: 0;
+}
+
+/* Proper mathematical superscripts */
+.equation sup {
+    font-size: 0.62em;
+    vertical-align: 0.55em;
+    line-height: 0;
 }
 
 
@@ -2160,8 +2176,8 @@ nav button:hover {
     }
 
     .equation {
-        grid-column:
-            2;
+        grid-column: 2;
+        font-size: 17px;
     }
 }
 
