@@ -1,0 +1,4886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>OilTwin | Baghewala Digital Twin</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+/* =========================================================
+   OILTWIN — INDUSTRIAL / OILFIELD VISUAL SYSTEM
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+
+    --black: #080b0d;
+    --deep: #0d1215;
+    --panel: #11181c;
+    --panel2: #151e23;
+
+    --line: #29343a;
+
+    --sand: #d7b879;
+    --amber: #e5a93a;
+    --copper: #b96b3b;
+
+    --cream: #eee7d9;
+    --muted: #8b969b;
+
+    --green: #73a86d;
+    --red: #c45d4d;
+    --blue: #5d91a8;
+
+    --mono:
+        "DM Mono",
+        monospace;
+
+    --heading:
+        "Barlow Condensed",
+        sans-serif;
+
+    --body:
+        "Inter",
+        sans-serif;
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    background:
+        var(--black);
+
+    color:
+        var(--cream);
+
+    font-family:
+        var(--body);
+
+    min-height:
+        100vh;
+
+    overflow-x:
+        hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .16;
+
+    background-image:
+        linear-gradient(
+            rgba(215,184,121,.07) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(215,184,121,.07) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        70px 70px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 75%
+        );
+
+    z-index:
+        -1;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+
+    height:
+        70px;
+
+    border-bottom:
+        1px solid var(--line);
+
+    background:
+        rgba(8,11,13,.94);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    padding:
+        0 42px;
+
+    position:
+        sticky;
+
+    top:
+        0;
+
+    z-index:
+        100;
+
+    backdrop-filter:
+        blur(12px);
+}
+
+
+.logo {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    cursor:
+        pointer;
+}
+
+
+.logo-mark {
+
+    width:
+        35px;
+
+    height:
+        35px;
+
+    border:
+        1px solid var(--amber);
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    color:
+        var(--amber);
+
+    font-family:
+        var(--heading);
+
+    font-weight:
+        800;
+
+    font-size:
+        15px;
+
+    position:
+        relative;
+}
+
+
+.logo-mark::after {
+
+    content: "";
+
+    position: absolute;
+
+    width:
+        7px;
+
+    height:
+        7px;
+
+    background:
+        var(--amber);
+
+    right:
+        -4px;
+
+    bottom:
+        -4px;
+}
+
+
+.logo-name {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        22px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        1px;
+}
+
+
+.logo-sub {
+
+    font-family:
+        var(--mono);
+
+    color:
+        var(--muted);
+
+    font-size:
+        8px;
+
+    letter-spacing:
+        1px;
+
+}
+
+
+nav {
+
+    display:
+        flex;
+
+    gap:
+        28px;
+}
+
+
+nav button {
+
+    border:
+        none;
+
+    background:
+        none;
+
+    color:
+        var(--muted);
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        11px;
+
+    cursor:
+        pointer;
+
+    letter-spacing:
+        .5px;
+
+    text-transform:
+        uppercase;
+}
+
+
+nav button:hover {
+
+    color:
+        var(--amber);
+}
+
+
+/* =========================================================
+   COMMON
+========================================================= */
+
+.page {
+
+    display:
+        none;
+}
+
+
+.page.active {
+
+    display:
+        block;
+}
+
+
+.container {
+
+    width:
+        min(1400px, calc(100% - 60px));
+
+    margin:
+        auto;
+}
+
+
+.mono {
+
+    font-family:
+        var(--mono);
+}
+
+
+.eyebrow {
+
+    color:
+        var(--amber);
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        2px;
+
+    text-transform:
+        uppercase;
+
+    margin-bottom:
+        14px;
+}
+
+
+.section-title {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        clamp(35px, 5vw, 65px);
+
+    line-height:
+        .92;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        -.5px;
+}
+
+
+.section-copy {
+
+    color:
+        var(--muted);
+
+    line-height:
+        1.7;
+
+    font-size:
+        14px;
+
+    max-width:
+        650px;
+}
+
+
+/* =========================================================
+   LANDING HERO
+========================================================= */
+
+.hero {
+
+    min-height:
+        calc(100vh - 70px);
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1.1fr .9fr;
+
+    align-items:
+        center;
+
+    gap:
+        60px;
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+}
+
+
+.hero-left {
+
+    padding:
+        70px 0;
+}
+
+
+.hero-title {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        clamp(70px, 10vw, 145px);
+
+    line-height:
+        .78;
+
+    text-transform:
+        uppercase;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        -4px;
+}
+
+
+.hero-title span {
+
+    color:
+        var(--amber);
+
+    display:
+        block;
+}
+
+
+.hero-tagline {
+
+    margin-top:
+        34px;
+
+    font-family:
+        var(--mono);
+
+    color:
+        var(--muted);
+
+    font-size:
+        12px;
+
+    max-width:
+        600px;
+
+    line-height:
+        1.8;
+}
+
+
+.hero-meta {
+
+    margin-top:
+        32px;
+
+    display:
+        flex;
+
+    gap:
+        35px;
+
+    flex-wrap:
+        wrap;
+}
+
+
+.meta-item {
+
+    border-left:
+        2px solid var(--amber);
+
+    padding-left:
+        12px;
+}
+
+
+.meta-number {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        24px;
+
+    color:
+        var(--cream);
+}
+
+
+.meta-label {
+
+    color:
+        var(--muted);
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        9px;
+
+    text-transform:
+        uppercase;
+}
+
+
+/* =========================================================
+   WELL VISUAL
+========================================================= */
+
+.hero-visual {
+
+    min-height:
+        570px;
+
+    position:
+        relative;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+}
+
+
+.field {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    border-left:
+        1px solid var(--line);
+
+    border-bottom:
+        1px solid var(--line);
+
+    background:
+        linear-gradient(
+            to bottom,
+            #11191d 0%,
+            #0b1013 58%,
+            #16110b 58%,
+            #24190d 100%
+        );
+}
+
+
+.sun {
+
+    position:
+        absolute;
+
+    width:
+        170px;
+
+    height:
+        170px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(229,169,58,.10);
+
+    border:
+        1px solid rgba(229,169,58,.3);
+
+    top:
+        80px;
+
+    right:
+        70px;
+}
+
+
+.horizon {
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    right:
+        0;
+
+    top:
+        58%;
+
+    height:
+        1px;
+
+    background:
+        var(--copper);
+}
+
+
+.ground-line {
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    right:
+        0;
+
+    top:
+        70%;
+
+    border-top:
+        1px dashed #63472b;
+}
+
+
+.well-head {
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    top:
+        26%;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        60px;
+
+    height:
+        120px;
+
+    border:
+        3px solid #778087;
+
+    border-bottom:
+        5px solid var(--amber);
+}
+
+
+.well-head::before {
+
+    content: "";
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        120px;
+
+    height:
+        12px;
+
+    top:
+        30px;
+
+    border:
+        3px solid #778087;
+
+}
+
+
+.rod {
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    transform:
+        translateX(-50%);
+
+    top:
+        0;
+
+    width:
+        4px;
+
+    height:
+        100%;
+
+    background:
+        #667278;
+}
+
+
+.steam {
+
+    position:
+        absolute;
+
+    left:
+        calc(50% + 40px);
+
+    top:
+        28%;
+
+    width:
+        120px;
+
+    height:
+        80px;
+}
+
+
+.steam span {
+
+    position:
+        absolute;
+
+    width:
+        20px;
+
+    height:
+        20px;
+
+    border-radius:
+        50%;
+
+    border:
+        1px solid rgba(238,231,217,.35);
+
+    animation:
+        steamRise 4s infinite ease-out;
+
+    opacity:
+        0;
+}
+
+
+.steam span:nth-child(1) {
+    left: 10px;
+    animation-delay: 0s;
+}
+
+.steam span:nth-child(2) {
+    left: 40px;
+    animation-delay: 1s;
+}
+
+.steam span:nth-child(3) {
+    left: 70px;
+    animation-delay: 2s;
+}
+
+
+@keyframes steamRise {
+
+    0% {
+        transform:
+            translateY(20px)
+            scale(.7);
+
+        opacity:
+            0;
+    }
+
+    30% {
+        opacity:
+            .4;
+    }
+
+    100% {
+        transform:
+            translateY(-100px)
+            scale(1.5);
+
+        opacity:
+            0;
+    }
+}
+
+
+.visual-label {
+
+    position:
+        absolute;
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        9px;
+
+    color:
+        #718087;
+
+    letter-spacing:
+        1px;
+}
+
+
+.visual-label.one {
+    top: 18%;
+    left: 8%;
+}
+
+.visual-label.two {
+    top: 53%;
+    left: 8%;
+}
+
+.visual-label.three {
+    bottom: 12%;
+    right: 8%;
+}
+
+
+.visual-readout {
+
+    position:
+        absolute;
+
+    bottom:
+        25px;
+
+    left:
+        25px;
+
+    right:
+        25px;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    border-top:
+        1px solid #394349;
+
+    padding-top:
+        12px;
+}
+
+
+.visual-readout span {
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        9px;
+
+    color:
+        var(--muted);
+}
+
+
+.visual-readout strong {
+
+    color:
+        var(--amber);
+
+    font-weight:
+        500;
+}
+
+
+/* =========================================================
+   THREE OPTIONS
+========================================================= */
+
+.choice-section {
+
+    padding:
+        90px 0 120px;
+
+    border-top:
+        1px solid var(--line);
+}
+
+
+.choice-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    margin-top:
+        45px;
+
+    border-top:
+        1px solid var(--line);
+
+    border-left:
+        1px solid var(--line);
+}
+
+
+.choice {
+
+    min-height:
+        310px;
+
+    padding:
+        30px;
+
+    border-right:
+        1px solid var(--line);
+
+    border-bottom:
+        1px solid var(--line);
+
+    cursor:
+        pointer;
+
+    position:
+        relative;
+
+    transition:
+        background .25s,
+        transform .25s;
+}
+
+
+.choice:hover {
+
+    background:
+        #151d21;
+
+    transform:
+        translateY(-4px);
+}
+
+
+.choice-number {
+
+    font-family:
+        var(--mono);
+
+    color:
+        var(--amber);
+
+    font-size:
+        11px;
+}
+
+
+.choice h3 {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        48px;
+
+    text-transform:
+        uppercase;
+
+    margin-top:
+        55px;
+
+    line-height:
+        .9;
+}
+
+
+.choice p {
+
+    color:
+        var(--muted);
+
+    font-size:
+        12px;
+
+    line-height:
+        1.7;
+
+    margin-top:
+        18px;
+
+    max-width:
+        300px;
+}
+
+
+.choice-arrow {
+
+    position:
+        absolute;
+
+    right:
+        25px;
+
+    bottom:
+        25px;
+
+    color:
+        var(--amber);
+
+    font-size:
+        25px;
+}
+
+
+/* =========================================================
+   PREDICT PAGE
+========================================================= */
+
+.predict-header {
+
+    padding:
+        55px 0 30px;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        end;
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+
+.predict-layout {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        370px 1fr;
+
+    gap:
+        20px;
+
+    padding:
+        25px 0 70px;
+}
+
+
+.panel {
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--line);
+}
+
+
+.panel-head {
+
+    padding:
+        17px 20px;
+
+    border-bottom:
+        1px solid var(--line);
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+}
+
+
+.panel-head h3 {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        21px;
+
+    text-transform:
+        uppercase;
+}
+
+
+.panel-body {
+
+    padding:
+        20px;
+}
+
+
+.field-section {
+
+    margin-bottom:
+        23px;
+}
+
+
+.field-section-title {
+
+    font-family:
+        var(--mono);
+
+    color:
+        var(--amber);
+
+    font-size:
+        9px;
+
+    letter-spacing:
+        1.5px;
+
+    text-transform:
+        uppercase;
+
+    margin-bottom:
+        10px;
+}
+
+
+.field-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        9px;
+}
+
+
+.field {
+
+    margin-bottom:
+        9px;
+}
+
+
+.field.full {
+
+    grid-column:
+        1 / -1;
+}
+
+
+.field label {
+
+    display:
+        block;
+
+    color:
+        var(--muted);
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        8px;
+
+    margin-bottom:
+        5px;
+}
+
+
+.field input,
+.field select {
+
+    width:
+        100%;
+
+    height:
+        38px;
+
+    background:
+        #090e11;
+
+    border:
+        1px solid #344047;
+
+    color:
+        var(--cream);
+
+    padding:
+        0 9px;
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        11px;
+
+    outline:
+        none;
+}
+
+
+.field input:focus,
+.field select:focus {
+
+    border-color:
+        var(--amber);
+}
+
+
+.run {
+
+    width:
+        100%;
+
+    height:
+        50px;
+
+    margin-top:
+        8px;
+
+    background:
+        var(--amber);
+
+    color:
+        #0b0c0d;
+
+    border:
+        none;
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        18px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .7px;
+
+    cursor:
+        pointer;
+}
+
+
+.run:hover {
+
+    background:
+        #efb952;
+}
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+.results-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap:
+        10px;
+
+    margin-bottom:
+        10px;
+}
+
+
+.metric {
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--line);
+
+    padding:
+        17px;
+}
+
+
+.metric-label {
+
+    font-family:
+        var(--mono);
+
+    color:
+        var(--muted);
+
+    font-size:
+        8px;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        1px;
+}
+
+
+.metric-value {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        31px;
+
+    margin-top:
+        9px;
+
+    color:
+        var(--cream);
+}
+
+
+.metric-unit {
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        8px;
+
+    color:
+        var(--muted);
+}
+
+
+/* =========================================================
+   SCHEDULE
+========================================================= */
+
+.schedule {
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--line);
+
+    margin-bottom:
+        10px;
+}
+
+
+.schedule-head {
+
+    padding:
+        16px 18px;
+
+    border-bottom:
+        1px solid var(--line);
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+}
+
+
+.schedule-head h3 {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        22px;
+
+    text-transform:
+        uppercase;
+}
+
+
+.score {
+
+    font-family:
+        var(--mono);
+
+    color:
+        var(--amber);
+
+    font-size:
+        11px;
+}
+
+
+.schedule-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+}
+
+
+.schedule-item {
+
+    padding:
+        16px;
+
+    border-right:
+        1px solid var(--line);
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+
+.schedule-item label {
+
+    display:
+        block;
+
+    font-family:
+        var(--mono);
+
+    color:
+        var(--muted);
+
+    font-size:
+        8px;
+
+    margin-bottom:
+        7px;
+}
+
+
+.schedule-item strong {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        22px;
+}
+
+
+/* =========================================================
+   CHARTS
+========================================================= */
+
+.chart-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        10px;
+
+    margin-bottom:
+        10px;
+}
+
+
+.chart-panel {
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--line);
+
+    padding:
+        18px;
+
+    height:
+        340px;
+}
+
+
+.chart-title {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        20px;
+
+    text-transform:
+        uppercase;
+
+    margin-bottom:
+        12px;
+}
+
+
+.chart-wrap {
+
+    height:
+        270px;
+}
+
+
+/* =========================================================
+   EQUATIONS PAGE
+========================================================= */
+
+.lab-header {
+
+    padding:
+        65px 0 40px;
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+
+.equation-flow {
+
+    padding:
+        35px 0;
+
+    display:
+        grid;
+
+    gap:
+        12px;
+}
+
+
+.flow-row {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        55px 1fr 1fr;
+
+    border:
+        1px solid var(--line);
+
+    background:
+        var(--panel);
+}
+
+
+.flow-number {
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    background:
+        #17130c;
+
+    color:
+        var(--amber);
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        11px;
+
+    border-right:
+        1px solid var(--line);
+}
+
+
+.flow-info {
+
+    padding:
+        20px;
+
+    border-right:
+        1px solid var(--line);
+}
+
+
+.flow-info h3 {
+
+    font-family:
+        var(--heading);
+
+    text-transform:
+        uppercase;
+
+    font-size:
+        23px;
+}
+
+
+.flow-info p {
+
+    color:
+        var(--muted);
+
+    font-size:
+        11px;
+
+    line-height:
+        1.6;
+
+    margin-top:
+        7px;
+}
+
+
+.equation {
+
+    padding:
+        20px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    font-family:
+        var(--mono);
+
+    color:
+        var(--amber);
+
+    font-size:
+        13px;
+
+    line-height:
+        1.8;
+}
+
+
+.assumption {
+
+    color:
+        #7c888d;
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        9px;
+
+    margin-top:
+        9px;
+}
+
+
+/* =========================================================
+   MANUAL PAGE
+========================================================= */
+
+.manual-header {
+
+    padding:
+        65px 0 40px;
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+
+.manual-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        240px 1fr;
+
+    gap:
+        35px;
+
+    padding:
+        40px 0 80px;
+}
+
+
+.manual-nav {
+
+    position:
+        sticky;
+
+    top:
+        100px;
+
+    height:
+        fit-content;
+}
+
+
+.manual-nav button {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    text-align:
+        left;
+
+    background:
+        none;
+
+    color:
+        var(--muted);
+
+    border:
+        none;
+
+    border-left:
+        1px solid var(--line);
+
+    padding:
+        12px 15px;
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        10px;
+
+    cursor:
+        pointer;
+}
+
+
+.manual-nav button:hover {
+
+    color:
+        var(--amber);
+
+    border-left-color:
+        var(--amber);
+}
+
+
+.manual-section {
+
+    margin-bottom:
+        55px;
+}
+
+
+.manual-section h3 {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        30px;
+
+    text-transform:
+        uppercase;
+
+    margin-bottom:
+        14px;
+}
+
+
+.manual-section p {
+
+    color:
+        var(--muted);
+
+    line-height:
+        1.8;
+
+    font-size:
+        13px;
+
+    max-width:
+        800px;
+}
+
+
+.manual-step {
+
+    margin-top:
+        15px;
+
+    padding:
+        17px;
+
+    border:
+        1px solid var(--line);
+
+    background:
+        var(--panel);
+
+    display:
+        grid;
+
+    grid-template-columns:
+        45px 1fr;
+}
+
+
+.manual-step-num {
+
+    font-family:
+        var(--mono);
+
+    color:
+        var(--amber);
+}
+
+
+.manual-step h4 {
+
+    font-family:
+        var(--heading);
+
+    font-size:
+        20px;
+
+    text-transform:
+        uppercase;
+
+    margin-bottom:
+        4px;
+}
+
+
+.manual-step p {
+
+    font-size:
+        11px;
+}
+
+
+/* =========================================================
+   DISCLAIMER
+========================================================= */
+
+.disclaimer {
+
+    border:
+        1px solid #574729;
+
+    background:
+        #17130c;
+
+    padding:
+        18px;
+
+    color:
+        #b6a47d;
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        9px;
+
+    line-height:
+        1.7;
+
+    margin-top:
+        25px;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    background:
+        rgba(5,7,8,.94);
+
+    display:
+        none;
+
+    place-items:
+        center;
+
+    z-index:
+        999;
+}
+
+
+.loading.active {
+
+    display:
+        grid;
+}
+
+
+.loader {
+
+    width:
+        320px;
+}
+
+
+.loader-line {
+
+    height:
+        2px;
+
+    background:
+        var(--line);
+
+    overflow:
+        hidden;
+
+    margin-top:
+        14px;
+}
+
+
+.loader-line::after {
+
+    content: "";
+
+    display:
+        block;
+
+    height:
+        100%;
+
+    width:
+        45%;
+
+    background:
+        var(--amber);
+
+    animation:
+        load 1s infinite;
+}
+
+
+@keyframes load {
+
+    from {
+        transform:
+            translateX(-100%);
+    }
+
+    to {
+        transform:
+            translateX(230%);
+    }
+}
+
+
+.loader-text {
+
+    font-family:
+        var(--mono);
+
+    color:
+        var(--amber);
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        1px;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error {
+
+    display:
+        none;
+
+    padding:
+        13px;
+
+    margin-bottom:
+        10px;
+
+    border:
+        1px solid #71372f;
+
+    background:
+        #211311;
+
+    color:
+        #e58a79;
+
+    font-family:
+        var(--mono);
+
+    font-size:
+        10px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px) {
+
+    .hero {
+        grid-template-columns:
+            1fr;
+    }
+
+    .hero-visual {
+        min-height:
+            450px;
+    }
+
+    .choice-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .predict-layout {
+        grid-template-columns:
+            1fr;
+    }
+
+    .results-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .chart-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .manual-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .manual-nav {
+        position:
+            static;
+    }
+}
+
+
+@media(max-width:650px) {
+
+    header {
+        padding:
+            0 15px;
+    }
+
+    nav {
+        display:
+            none;
+    }
+
+    .container {
+        width:
+            min(100% - 30px, 1400px);
+    }
+
+    .hero-title {
+        font-size:
+            70px;
+    }
+
+    .results-grid,
+    .schedule-grid,
+    .field-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .field.full {
+        grid-column:
+            auto;
+    }
+
+    .flow-row {
+        grid-template-columns:
+            40px 1fr;
+    }
+
+    .equation {
+        grid-column:
+            2;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+    <div
+        class="logo"
+        onclick="showPage('home')"
+    >
+
+        <div class="logo-mark">
+            OT
+        </div>
+
+        <div>
+
+            <div class="logo-name">
+                OILTWIN
+            </div>
+
+            <div class="logo-sub">
+                BAGHEWALA / WELL-TO-SURFACE
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <button onclick="showPage('home')">
+            Home
+        </button>
+
+        <button onclick="showPage('predict')">
+            Predict
+        </button>
+
+        <button onclick="showPage('lab')">
+            Twin Lab
+        </button>
+
+        <button onclick="showPage('manual')">
+            Field Manual
+        </button>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================================================
+     HOME
+========================================================= -->
+
+<section
+    id="home"
+    class="page active"
+>
+
+
+    <div class="container">
+
+
+        <div class="hero">
+
+
+            <div class="hero-left">
+
+                <div class="eyebrow">
+                    SIH26120 / DIGITAL TWIN
+                </div>
+
+
+                <h1 class="hero-title">
+
+                    HEAVY
+                    <span>OIL.</span>
+
+                    SMART
+                    <span>HEATING.</span>
+
+                </h1>
+
+
+                <p class="hero-tagline">
+
+                    A physics-informed digital twin for
+                    Cyclic Steam Stimulation and Sucker Rod
+                    Pump operations — from reservoir temperature
+                    to surface production.
+
+                </p>
+
+
+                <div class="hero-meta">
+
+
+                    <div class="meta-item">
+
+                        <div class="meta-number">
+                            CSS
+                        </div>
+
+                        <div class="meta-label">
+                            Thermal stimulation
+                        </div>
+
+                    </div>
+
+
+                    <div class="meta-item">
+
+                        <div class="meta-number">
+                            SRP
+                        </div>
+
+                        <div class="meta-label">
+                            Artificial lift
+                        </div>
+
+                    </div>
+
+
+                    <div class="meta-item">
+
+                        <div class="meta-number">
+                            01 → 05
+                        </div>
+
+                        <div class="meta-label">
+                            Demo wells
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- OILFIELD VISUAL -->
+
+            <div class="hero-visual">
+
+                <div class="field">
+
+                    <div class="sun"></div>
+
+                    <div class="horizon"></div>
+
+                    <div class="ground-line"></div>
+
+
+                    <div class="well-head">
+
+                        <div class="rod"></div>
+
+                    </div>
+
+
+                    <div class="steam">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                    <div class="visual-label one">
+                        SURFACE
+                    </div>
+
+                    <div class="visual-label two">
+                        RESERVOIR
+                    </div>
+
+                    <div class="visual-label three">
+                        HEAVY-OIL ZONE
+                    </div>
+
+
+                    <div class="visual-readout">
+
+                        <span>
+                            FIELD
+                            <strong>BAGHEWALA</strong>
+                        </span>
+
+                        <span>
+                            API
+                            <strong>17–19°</strong>
+                        </span>
+
+                        <span>
+                            TEMP
+                            <strong>46–48°C</strong>
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- THREE OPTIONS -->
+
+        <div class="choice-section">
+
+
+            <div class="eyebrow">
+                SELECT YOUR PATH
+            </div>
+
+
+            <div class="section-title">
+                THREE WAYS IN.
+            </div>
+
+
+            <p class="section-copy">
+
+                Don't just look at a dashboard.
+                Understand the model, run it, and learn
+                how to interpret the result.
+
+            </p>
+
+
+            <div class="choice-grid">
+
+
+                <div
+                    class="choice"
+                    onclick="showPage('predict')"
+                >
+
+                    <div class="choice-number">
+                        01 / OPERATE
+                    </div>
+
+                    <h3>
+                        Predict
+                    </h3>
+
+                    <p>
+                        Enter the current well condition and
+                        generate an integrated CSS + SRP
+                        operating schedule.
+                    </p>
+
+                    <div class="choice-arrow">
+                        →
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="choice"
+                    onclick="showPage('lab')"
+                >
+
+                    <div class="choice-number">
+                        02 / UNDERSTAND
+                    </div>
+
+                    <h3>
+                        Twin<br>Lab
+                    </h3>
+
+                    <p>
+                        Follow the equations behind viscosity,
+                        thermal response, steam requirement,
+                        production and SRP optimization.
+                    </p>
+
+                    <div class="choice-arrow">
+                        →
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="choice"
+                    onclick="showPage('manual')"
+                >
+
+                    <div class="choice-number">
+                        03 / LEARN
+                    </div>
+
+                    <h3>
+                        Field<br>Manual
+                    </h3>
+
+                    <p>
+                        Learn what every input means,
+                        how to operate the simulator,
+                        and how to interpret its recommendations.
+                    </p>
+
+                    <div class="choice-arrow">
+                        →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="disclaimer">
+
+                DEMONSTRATION MODE — The current system uses
+                representative/synthetic well data and reduced-order
+                engineering relationships. Results are model estimates
+                and require calibration and engineering validation before
+                any real field operating decision.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PREDICT
+========================================================= -->
+
+<section
+    id="predict"
+    class="page"
+>
+
+
+    <div class="container">
+
+
+        <div class="predict-header">
+
+            <div>
+
+                <div class="eyebrow">
+                    01 / OPERATE
+                </div>
+
+                <div class="section-title">
+                    DIGITAL TWIN
+                </div>
+
+            </div>
+
+
+            <div class="mono">
+                CSS → THERMAL → SRP → PRODUCTION
+            </div>
+
+        </div>
+
+
+        <div class="predict-layout">
+
+
+            <!-- INPUTS -->
+
+            <div class="panel">
+
+
+                <div class="panel-head">
+
+                    <h3>
+                        Well Inputs
+                    </h3>
+
+                    <span class="mono">
+                        LIVE
+                    </span>
+
+                </div>
+
+
+                <div class="panel-body">
+
+
+                    <div class="field-section">
+
+                        <div class="field-section-title">
+                            Well
+                        </div>
+
+                        <div class="field">
+
+                            <label>
+                                WELL ID
+                            </label>
+
+                            <select id="wellId">
+
+                                <option value="BGW-001">
+                                    BGW-001
+                                </option>
+
+                                <option value="BGW-002">
+                                    BGW-002
+                                </option>
+
+                                <option value="BGW-003">
+                                    BGW-003
+                                </option>
+
+                                <option value="BGW-004">
+                                    BGW-004
+                                </option>
+
+                                <option value="BGW-005">
+                                    BGW-005
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field-section">
+
+                        <div class="field-section-title">
+                            Reservoir / Oil
+                        </div>
+
+
+                        <div class="field-grid">
+
+                            <div class="field">
+
+                                <label>
+                                    TEMPERATURE °C
+                                </label>
+
+                                <input
+                                    id="oilTemperatureC"
+                                    type="number"
+                                    value="47"
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    PRESSURE bar
+                                </label>
+
+                                <input
+                                    id="reservoirPressureBar"
+                                    type="number"
+                                    value="42"
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    API GRAVITY
+                                </label>
+
+                                <input
+                                    id="apiGravity"
+                                    type="number"
+                                    value="18.2"
+                                    step="0.1"
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    PRODUCTION BOPD
+                                </label>
+
+                                <input
+                                    id="currentOilProductionBopd"
+                                    type="number"
+                                    value="128"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field-section">
+
+                        <div class="field-section-title">
+                            Steam
+                        </div>
+
+
+                        <div class="field-grid">
+
+                            <div class="field">
+
+                                <label>
+                                    STEAM TEMP °C
+                                </label>
+
+                                <input
+                                    id="steamTemperatureC"
+                                    type="number"
+                                    value="280"
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    STEAM QUALITY
+                                </label>
+
+                                <input
+                                    id="steamQuality"
+                                    type="number"
+                                    value="0.80"
+                                    step="0.01"
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    AVAILABLE STEAM ton/day
+                                </label>
+
+                                <input
+                                    id="availableSteamRateTpd"
+                                    type="number"
+                                    value="42"
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    INJECTION PRESSURE bar
+                                </label>
+
+                                <input
+                                    id="injectionPressureBar"
+                                    type="number"
+                                    value="8.5"
+                                >
+
+                            </div>
+
+
+                            <div class="field full">
+
+                                <label>
+                                    PRODUCTION CUT-OFF BOPD
+                                </label>
+
+                                <input
+                                    id="productionCutoffBopd"
+                                    type="number"
+                                    value="57.6"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field-section">
+
+                        <div class="field-section-title">
+                            Sucker Rod Pump
+                        </div>
+
+
+                        <div class="field-grid">
+
+                            <div class="field">
+
+                                <label>
+                                    SPM
+                                </label>
+
+                                <input
+                                    id="currentSpm"
+                                    type="number"
+                                    value="5.2"
+                                    step="0.1"
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    STROKE in
+                                </label>
+
+                                <input
+                                    id="currentStrokeLength"
+                                    type="number"
+                                    value="72"
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    PUMP EFFICIENCY %
+                                </label>
+
+                                <input
+                                    id="pumpEfficiency"
+                                    type="number"
+                                    value="81"
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    ROD LOAD %
+                                </label>
+
+                                <input
+                                    id="currentRodLoad"
+                                    type="number"
+                                    value="68"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="run"
+                        onclick="runPrediction()"
+                        id="runButton"
+                    >
+                        RUN DIGITAL TWIN →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULTS -->
+
+            <div>
+
+
+                <div
+                    class="error"
+                    id="errorBox"
+                ></div>
+
+
+                <div class="results-grid">
+
+
+                    <div class="metric">
+
+                        <div class="metric-label">
+                            Predicted production
+                        </div>
+
+                        <div
+                            class="metric-value"
+                            id="productionValue"
+                        >
+                            —
+                        </div>
+
+                        <div class="metric-unit">
+                            BOPD
+                        </div>
+
+                    </div>
+
+
+                    <div class="metric">
+
+                        <div class="metric-label">
+                            Production increase
+                        </div>
+
+                        <div
+                            class="metric-value"
+                            id="increaseValue"
+                        >
+                            —
+                        </div>
+
+                        <div class="metric-unit">
+                            %
+                        </div>
+
+                    </div>
+
+
+                    <div class="metric">
+
+                        <div class="metric-label">
+                            Steam requirement
+                        </div>
+
+                        <div
+                            class="metric-value"
+                            id="steamValue"
+                        >
+                            —
+                        </div>
+
+                        <div class="metric-unit">
+                            ton/day
+                        </div>
+
+                    </div>
+
+
+                    <div class="metric">
+
+                        <div class="metric-label">
+                            Rod-load risk
+                        </div>
+
+                        <div
+                            class="metric-value"
+                            id="riskValue"
+                        >
+                            —
+                        </div>
+
+                        <div class="metric-unit">
+                            score
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="schedule">
+
+
+                    <div class="schedule-head">
+
+                        <h3>
+                            Recommended Schedule
+                        </h3>
+
+                        <div
+                            class="score"
+                            id="scoreValue"
+                        >
+                            OPTIMIZATION SCORE —
+                        </div>
+
+                    </div>
+
+
+                    <div class="schedule-grid">
+
+
+                        <div class="schedule-item">
+
+                            <label>
+                                STEAM RATE
+                            </label>
+
+                            <strong id="scheduleSteam">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="schedule-item">
+
+                            <label>
+                                TOTAL STEAM
+                            </label>
+
+                            <strong id="scheduleTotalSteam">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="schedule-item">
+
+                            <label>
+                                INJECTION DURATION
+                            </label>
+
+                            <strong id="scheduleInjectionDays">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="schedule-item">
+
+                            <label>
+                                INJECTION PRESSURE
+                            </label>
+
+                            <strong id="schedulePressure">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="schedule-item">
+
+                            <label>
+                                SOAK
+                            </label>
+
+                            <strong id="scheduleSoak">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="schedule-item">
+
+                            <label>
+                                PUMP RESTART
+                            </label>
+
+                            <strong id="scheduleRestart">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="schedule-item">
+
+                            <label>
+                                RECOMMENDED SPM
+                            </label>
+
+                            <strong id="scheduleSpm">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="schedule-item">
+
+                            <label>
+                                RECOMMENDED STROKE
+                            </label>
+
+                            <strong id="scheduleStroke">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="schedule-item">
+
+                            <label>
+                                PUMP EFFICIENCY
+                            </label>
+
+                            <strong id="scheduleEfficiency">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-grid">
+
+
+                    <div class="chart-panel">
+
+                        <div class="chart-title">
+                            Thermal / Viscosity Response
+                        </div>
+
+                        <div class="chart-wrap">
+
+                            <canvas
+                                id="thermalChart"
+                            ></canvas>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-panel">
+
+                        <div class="chart-title">
+                            Production Response
+                        </div>
+
+                        <div class="chart-wrap">
+
+                            <canvas
+                                id="productionChart"
+                            ></canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TWIN LAB
+========================================================= -->
+
+<section
+    id="lab"
+    class="page"
+>
+
+
+    <div class="container">
+
+
+        <div class="lab-header">
+
+            <div class="eyebrow">
+                02 / UNDERSTAND
+            </div>
+
+            <div class="section-title">
+                TWIN LAB
+            </div>
+
+            <p class="section-copy">
+
+                Follow the calculation chain used by the
+                prototype. The model is deterministic:
+                the same inputs produce the same result.
+
+            </p>
+
+        </div>
+
+
+        <div class="equation-flow">
+
+
+            <div class="flow-row">
+
+                <div class="flow-number">
+                    01
+                </div>
+
+                <div class="flow-info">
+
+                    <h3>
+                        Temperature → Viscosity
+                    </h3>
+
+                    <p>
+                        Heavy-oil viscosity falls as temperature
+                        increases. API gravity provides an adjustment
+                        to the reference viscosity.
+                    </p>
+
+                    <div class="assumption">
+                        REDUCED-ORDER HEAVY-OIL RELATIONSHIP
+                    </div>
+
+                </div>
+
+                <div class="equation">
+
+                    μ(T) =
+                    μ<sub>ref</sub>
+                    × exp[
+                    B(1/T − 1/T<sub>ref</sub>)
+                    ]
+                    × F(API)
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-row">
+
+                <div class="flow-number">
+                    02
+                </div>
+
+                <div class="flow-info">
+
+                    <h3>
+                        Steam → Heat
+                    </h3>
+
+                    <p>
+                        Available steam rate, steam temperature and
+                        steam quality determine the effective thermal
+                        input to the well.
+                    </p>
+
+                    <div class="assumption">
+                        STEAM ENERGY × EFFECTIVE HEAT-TRANSFER FACTOR
+                    </div>
+
+                </div>
+
+                <div class="equation">
+
+                    Q<sub>steam</sub> =
+                    M<sub>steam</sub>
+                    × H<sub>steam</sub>
+                    × η<sub>thermal</sub>
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-row">
+
+                <div class="flow-number">
+                    03
+                </div>
+
+                <div class="flow-info">
+
+                    <h3>
+                        Heat → Temperature
+                    </h3>
+
+                    <p>
+                        The injected thermal energy is translated into
+                        an estimated reservoir/oil temperature response
+                        using an effective thermal capacity.
+                    </p>
+
+                    <div class="assumption">
+                        LUMPED THERMAL CAPACITY MODEL
+                    </div>
+
+                </div>
+
+                <div class="equation">
+
+                    ΔT =
+                    Q<sub>effective</sub>
+                    /
+                    C<sub>thermal</sub>
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-row">
+
+                <div class="flow-number">
+                    04
+                </div>
+
+                <div class="flow-info">
+
+                    <h3>
+                        Mobility Improvement
+                    </h3>
+
+                    <p>
+                        Lower viscosity increases the relative mobility
+                        of the heavy oil and improves the production
+                        response of the reduced-order reservoir model.
+                    </p>
+
+                    <div class="assumption">
+                        VISCOSITY-BASED MOBILITY RESPONSE
+                    </div>
+
+                </div>
+
+                <div class="equation">
+
+                    Mobility Gain
+                    ∝
+                    (μ<sub>before</sub>
+                    /
+                    μ<sub>after</sub>)<sup>n</sup>
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-row">
+
+                <div class="flow-number">
+                    05
+                </div>
+
+                <div class="flow-info">
+
+                    <h3>
+                        Steam Schedule
+                    </h3>
+
+                    <p>
+                        The optimizer evaluates candidate steam rates
+                        and injection durations rather than returning
+                        a random value.
+                    </p>
+
+                    <div class="assumption">
+                        CANDIDATE SEARCH / REDUCED-ORDER OPTIMIZATION
+                    </div>
+
+                </div>
+
+                <div class="equation">
+
+                    M<sub>total</sub> =
+                    M<sub>rate</sub>
+                    × t<sub>injection</sub>
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-row">
+
+                <div class="flow-number">
+                    06
+                </div>
+
+                <div class="flow-info">
+
+                    <h3>
+                        Pressure Response
+                    </h3>
+
+                    <p>
+                        Injection pressure is incorporated as a
+                        pressure-effect factor in the thermal/production
+                        response model.
+                    </p>
+
+                    <div class="assumption">
+                        SIMPLIFIED PRESSURE FACTOR
+                    </div>
+
+                </div>
+
+                <div class="equation">
+
+                    f<sub>P</sub> =
+                    clamp(
+                    P<sub>inj</sub> /
+                    P<sub>reference</sub>,
+                    P<sub>min</sub>,
+                    P<sub>max</sub>
+                    )
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-row">
+
+                <div class="flow-number">
+                    07
+                </div>
+
+                <div class="flow-info">
+
+                    <h3>
+                        Soak → Cooling
+                    </h3>
+
+                    <p>
+                        After injection, the model estimates cooling
+                        during the soak period before pump restart.
+                    </p>
+
+                    <div class="assumption">
+                        TIME-DEPENDENT THERMAL DECLINE
+                    </div>
+
+                </div>
+
+                <div class="equation">
+
+                    T<sub>restart</sub> =
+                    T<sub>heated</sub>
+                    −
+                    r<sub>soak</sub>
+                    ×
+                    t<sub>soak</sub>
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-row">
+
+                <div class="flow-number">
+                    08
+                </div>
+
+                <div class="flow-info">
+
+                    <h3>
+                        Production Forecast
+                    </h3>
+
+                    <p>
+                        Production declines from the predicted stimulated
+                        condition toward the production cut-off.
+                    </p>
+
+                    <div class="assumption">
+                        REDUCED-ORDER PRODUCTION DECLINE MODEL
+                    </div>
+
+                </div>
+
+                <div class="equation">
+
+                    q(t) =
+                    q<sub>stimulated</sub>
+                    ×
+                    decline(t)
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-row">
+
+                <div class="flow-number">
+                    09
+                </div>
+
+                <div class="flow-info">
+
+                    <h3>
+                        SRP Capacity
+                    </h3>
+
+                    <p>
+                        Pump capacity is estimated from stroke,
+                        strokes per minute and pump efficiency.
+                    </p>
+
+                    <div class="assumption">
+                        SIMPLIFIED PUMP CAPACITY RELATIONSHIP
+                    </div>
+
+                </div>
+
+                <div class="equation">
+
+                    Q<sub>pump</sub>
+                    ∝
+                    Stroke
+                    ×
+                    SPM
+                    ×
+                    η<sub>pump</sub>
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-row">
+
+                <div class="flow-number">
+                    10
+                </div>
+
+                <div class="flow-info">
+
+                    <h3>
+                        Rod-Load Risk
+                    </h3>
+
+                    <p>
+                        Current rod load, pump efficiency, viscosity and
+                        operating speed contribute to the surface risk
+                        estimate.
+                    </p>
+
+                    <div class="assumption">
+                        RULE-BASED SRP RISK PROTOTYPE
+                    </div>
+
+                </div>
+
+                <div class="equation">
+
+                    Risk =
+                    f(
+                    Rod Load,
+                    SPM,
+                    Stroke,
+                    μ,
+                    η<sub>pump</sub>
+                    )
+
+                </div>
+
+            </div>
+
+
+            <div class="flow-row">
+
+                <div class="flow-number">
+                    11
+                </div>
+
+                <div class="flow-info">
+
+                    <h3>
+                        Integrated Objective
+                    </h3>
+
+                    <p>
+                        CSS and SRP are evaluated together instead of
+                        treating steam stimulation and artificial lift
+                        as separate optimization problems.
+                    </p>
+
+                    <div class="assumption">
+                        PROTOTYPE MULTI-OBJECTIVE SCORE
+                    </div>
+
+                </div>
+
+                <div class="equation">
+
+                    Score =
+                    f(
+                    Production Gain,
+                    Energy Index,
+                    Rod Risk
+                    )
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="disclaimer">
+
+            MODEL NOTE — These equations describe the reduced-order
+            prototype currently implemented in OilTwin. They are
+            engineering approximations, not a commercial reservoir
+            simulator and not field-calibrated operating correlations.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FIELD MANUAL
+========================================================= -->
+
+<section
+    id="manual"
+    class="page"
+>
+
+
+    <div class="container">
+
+
+        <div class="manual-header">
+
+            <div class="eyebrow">
+                03 / LEARN
+            </div>
+
+            <div class="section-title">
+                FIELD MANUAL
+            </div>
+
+            <p class="section-copy">
+
+                A short guide to operating the OilTwin demonstration.
+
+            </p>
+
+        </div>
+
+
+        <div class="manual-grid">
+
+
+            <div class="manual-nav">
+
+                <button onclick="scrollManual('start')">
+                    01 / START
+                </button>
+
+                <button onclick="scrollManual('inputs')">
+                    02 / INPUTS
+                </button>
+
+                <button onclick="scrollManual('result')">
+                    03 / RESULTS
+                </button>
+
+                <button onclick="scrollManual('experiment')">
+                    04 / EXPERIMENT
+                </button>
+
+                <button onclick="scrollManual('limits')">
+                    05 / LIMITATIONS
+                </button>
+
+            </div>
+
+
+            <div>
+
+
+                <div
+                    class="manual-section"
+                    id="start"
+                >
+
+                    <h3>
+                        Start Here
+                    </h3>
+
+                    <p>
+                        Select a Baghewala demonstration well from
+                        the Predict page. The system loads representative
+                        starting conditions for that well.
+                    </p>
+
+
+                    <div class="manual-step">
+
+                        <div class="manual-step-num">
+                            01
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Select a well
+                            </h4>
+
+                            <p>
+                                BGW-001 through BGW-005 are available
+                                in the demonstration dataset.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="manual-step">
+
+                        <div class="manual-step-num">
+                            02
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Review conditions
+                            </h4>
+
+                            <p>
+                                Check temperature, pressure, API,
+                                production, steam and SRP conditions.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="manual-step">
+
+                        <div class="manual-step-num">
+                            03
+                        </div>
+
+                        <div>
+
+                            <h4>
+                                Run the twin
+                            </h4>
+
+                            <p>
+                                Press RUN DIGITAL TWIN to calculate
+                                the integrated schedule.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="manual-section"
+                    id="inputs"
+                >
+
+                    <h3>
+                        What The Inputs Mean
+                    </h3>
+
+                    <p>
+                        Temperature controls the viscosity estimate.
+                        Pressure and API describe the reservoir/oil
+                        state. Steam temperature, quality and rate
+                        determine thermal input. SPM, stroke, pump
+                        efficiency and rod load describe the artificial
+                        lift condition.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="manual-section"
+                    id="result"
+                >
+
+                    <h3>
+                        Reading The Result
+                    </h3>
+
+                    <p>
+                        The recommended schedule combines CSS injection,
+                        soak and pump restart with the post-stimulation
+                        SRP setting. Production increase is relative to
+                        the current production supplied to the model.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="manual-section"
+                    id="experiment"
+                >
+
+                    <h3>
+                        Try An Experiment
+                    </h3>
+
+                    <p>
+                        Change only one variable and run the twin again.
+                        For example, reduce reservoir temperature and
+                        observe the viscosity and production response.
+                        Then increase the available steam rate and
+                        compare the resulting schedule.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="manual-section"
+                    id="limits"
+                >
+
+                    <h3>
+                        Important Limitation
+                    </h3>
+
+                    <p>
+                        This demonstration does not replace a reservoir
+                        simulator, wellbore model, commercial pump
+                        simulator or field engineering review. The
+                        current well dataset is representative/synthetic.
+                        Actual deployment would require field history,
+                        calibration, equipment constraints and engineering
+                        validation.
+                    </p>
+
+                </div>
+
+
+                <div class="disclaimer">
+
+                    OILTWIN IS A DECISION-SUPPORT PROTOTYPE.
+                    DO NOT USE DEMONSTRATION OUTPUTS AS DIRECT FIELD
+                    OPERATING INSTRUCTIONS.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LOADING
+========================================================= -->
+
+<div
+    class="loading"
+    id="loading"
+>
+
+    <div class="loader">
+
+        <div class="loader-text">
+            CALCULATING WELL-TO-SURFACE RESPONSE...
+        </div>
+
+        <div class="loader-line"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function showPage(page) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            element => {
+                element.classList.remove(
+                    "active"
+                );
+            }
+        );
+
+
+    const target =
+        document.getElementById(
+            page
+        );
+
+
+    if (target) {
+
+        target.classList.add(
+            "active"
+        );
+
+    }
+
+
+    window.scrollTo(
+        0,
+        0
+    );
+
+}
+
+
+/* =========================================================
+   MANUAL NAVIGATION
+========================================================= */
+
+function scrollManual(id) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+    if (element) {
+
+        element.scrollIntoView({
+            behavior:
+                "smooth"
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   API
+========================================================= */
+
+const API_BASE =
+    window.OILTWIN_API_URL ||
+    "http://localhost:5000/api";
+
+
+let thermalChart = null;
+
+let productionChart = null;
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function val(id) {
+
+    return document
+        .getElementById(id)
+        .value;
+
+}
+
+
+function num(id) {
+
+    return Number(
+        val(id)
+    );
+
+}
+
+
+function setText(
+    id,
+    value
+) {
+
+    document
+        .getElementById(id)
+        .textContent =
+        value;
+
+}
+
+
+function fmt(
+    value,
+    decimals = 1
+) {
+
+    if (
+        value === undefined ||
+        value === null ||
+        !Number.isFinite(
+            Number(value)
+        )
+    ) {
+
+        return "—";
+
+    }
+
+    return Number(value)
+        .toFixed(decimals);
+
+}
+
+
+/* =========================================================
+   LOAD WELL
+========================================================= */
+
+document
+    .getElementById(
+        "wellId"
+    )
+    .addEventListener(
+        "change",
+        loadWell
+    );
+
+
+async function loadWell() {
+
+    try {
+
+        const wellId =
+            val("wellId");
+
+
+        const response =
+            await fetch(
+                `${API_BASE}/wells/${wellId}`
+            );
+
+
+        if (!response.ok) {
+
+            return;
+
+        }
+
+
+        const json =
+            await response.json();
+
+
+        const well =
+            json.data ||
+            json.well ||
+            json;
+
+
+        if (!well) {
+
+            return;
+
+        }
+
+
+        setInput(
+            "oilTemperatureC",
+            well.reservoirTemperature
+        );
+
+        setInput(
+            "reservoirPressureBar",
+            well.reservoirPressure
+        );
+
+        setInput(
+            "apiGravity",
+            well.apiGravity
+        );
+
+        setInput(
+            "currentOilProductionBopd",
+            well.currentOilProduction
+        );
+
+        setInput(
+            "availableSteamRateTpd",
+            well.steamInjectionRate
+        );
+
+        setInput(
+            "injectionPressureBar",
+            well.steamPressure
+        );
+
+        setInput(
+            "currentSpm",
+            well.spm
+        );
+
+        setInput(
+            "currentStrokeLength",
+            well.strokeLength
+        );
+
+        setInput(
+            "pumpEfficiency",
+            well.pumpEfficiency
+        );
+
+        setInput(
+            "currentRodLoad",
+            well.rodLoad
+        );
+
+        setInput(
+            "productionCutoffBopd",
+            Math.max(
+                30,
+                Number(
+                    well.currentOilProduction
+                ) * .45
+            )
+        );
+
+    }
+    catch (error) {
+
+        console.log(
+            "Well load:",
+            error
+        );
+
+    }
+
+}
+
+
+function setInput(
+    id,
+    value
+) {
+
+    if (
+        value !== undefined &&
+        value !== null
+    ) {
+
+        document
+            .getElementById(id)
+            .value =
+            value;
+
+    }
+
+}
+
+
+/* =========================================================
+   RUN PREDICTION
+========================================================= */
+
+async function runPrediction() {
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    const errorBox =
+        document.getElementById(
+            "errorBox"
+        );
+
+
+    errorBox.style.display =
+        "none";
+
+
+    loading.classList.add(
+        "active"
+    );
+
+
+    const payload = {
+
+        wellId:
+            val("wellId"),
+
+        oilTemperatureC:
+            num("oilTemperatureC"),
+
+        reservoirPressureBar:
+            num("reservoirPressureBar"),
+
+        apiGravity:
+            num("apiGravity"),
+
+        currentOilProductionBopd:
+            num("currentOilProductionBopd"),
+
+        steamTemperatureC:
+            num("steamTemperatureC"),
+
+        steamQuality:
+            num("steamQuality"),
+
+        availableSteamRateTpd:
+            num("availableSteamRateTpd"),
+
+        injectionPressureBar:
+            num("injectionPressureBar"),
+
+        productionCutoffBopd:
+            num("productionCutoffBopd"),
+
+        currentSpm:
+            num("currentSpm"),
+
+        currentStrokeLength:
+            num("currentStrokeLength"),
+
+        pumpEfficiency:
+            num("pumpEfficiency"),
+
+        currentRodLoad:
+            num("currentRodLoad")
+
+    };
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE}/integrated/optimize`,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(
+                            payload
+                        )
+
+                }
+            );
+
+
+        const json =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !json.success
+        ) {
+
+            throw new Error(
+                json.message ||
+                "Optimization failed"
+            );
+
+        }
+
+
+        displayResults(
+            json.data
+        );
+
+    }
+    catch (error) {
+
+        errorBox.textContent =
+            "SYSTEM ERROR — " +
+            error.message;
+
+        errorBox.style.display =
+            "block";
+
+    }
+    finally {
+
+        loading.classList.remove(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY RESULTS
+========================================================= */
+
+function displayResults(
+    result
+) {
+
+    const current =
+        result.currentState ||
+        {};
+
+    const decision =
+        result.integratedDecision ||
+        {};
+
+    const injection =
+        decision.injection ||
+        {};
+
+    const soak =
+        decision.soak ||
+        {};
+
+    const production =
+        decision.production ||
+        {};
+
+    const srp =
+        decision.srp ||
+        {};
+
+    const performance =
+        result.performance ||
+        {};
+
+    const restart =
+        result.pumpRestart ||
+        {};
+
+
+    setText(
+        "productionValue",
+        fmt(
+            performance.predictedProductionBopd
+        )
+    );
+
+
+    setText(
+        "increaseValue",
+        fmt(
+            performance.productionIncreasePercent
+        )
+    );
+
+
+    setText(
+        "steamValue",
+        fmt(
+            injection.steamRateTpd
+        )
+    );
+
+
+    setText(
+        "riskValue",
+        fmt(
+            performance.rodLoadRiskScore,
+            0
+        )
+    );
+
+
+    setText(
+        "scoreValue",
+        `OPTIMIZATION SCORE ${fmt(
+            performance.integratedOptimizationScore,
+            0
+        )}`
+    );
+
+
+    setText(
+        "scheduleSteam",
+        `${fmt(
+            injection.steamRateTpd
+        )} ton/day`
+    );
+
+
+    setText(
+        "scheduleTotalSteam",
+        `${fmt(
+            injection.totalSteamVolumeTons
+        )} ton`
+    );
+
+
+    setText(
+        "scheduleInjectionDays",
+        `${fmt(
+            injection.durationDays
+        )} days`
+    );
+
+
+    setText(
+        "schedulePressure",
+        `${fmt(
+            injection.pressureBar
+        )} bar`
+    );
+
+
+    setText(
+        "scheduleSoak",
+        `${fmt(
+            soak.durationDays
+        )} days`
+    );
+
+
+    setText(
+        "scheduleRestart",
+        `${fmt(
+            soak.pumpRestartAfterHours
+        )} hr`
+    );
+
+
+    setText(
+        "scheduleSpm",
+        fmt(
+            srp.recommendedSpm
+        )
+    );
+
+
+    setText(
+        "scheduleStroke",
+        `${fmt(
+            srp.recommendedStrokeLength,
+            0
+        )} in`
+    );
+
+
+    setText(
+        "scheduleEfficiency",
+        `${fmt(
+            srp.pumpEfficiency,
+            0
+        )}%`
+    );
+
+
+    buildThermalChart(
+        result
+    );
+
+
+    buildProductionChart(
+        result
+    );
+
+}
+
+
+/* =========================================================
+   THERMAL CHART
+========================================================= */
+
+function buildThermalChart(
+    result
+) {
+
+    const canvas =
+        document.getElementById(
+            "thermalChart"
+        );
+
+
+    if (
+        thermalChart
+    ) {
+
+        thermalChart.destroy();
+
+    }
+
+
+    const currentTemp =
+        Number(
+            result.currentState
+                ?.oilTemperatureC
+        ) || 47;
+
+
+    const restartTemp =
+        Number(
+            result.pumpRestart
+                ?.temperatureC
+        ) || currentTemp;
+
+
+    const before =
+        Number(
+            result.css
+                ?.viscosity
+                ?.beforeCp
+        ) ||
+        4200;
+
+
+    const after =
+        Number(
+            result.pumpRestart
+                ?.viscosityCp
+        ) ||
+        before;
+
+
+    thermalChart =
+        new Chart(
+            canvas,
+            {
+
+                type:
+                    "line",
+
+                data: {
+
+                    labels: [
+                        "Current",
+                        "Heated",
+                        "Restart"
+                    ],
+
+                    datasets: [
+
+                        {
+                            label:
+                                "Temperature °C",
+
+                            data: [
+                                currentTemp,
+                                (
+                                    currentTemp +
+                                    restartTemp
+                                ) / 2,
+                                restartTemp
+                            ],
+
+                            tension:
+                                .3,
+
+                            borderColor:
+                                "#e5a93a",
+
+                            backgroundColor:
+                                "rgba(229,169,58,.08)",
+
+                            fill:
+                                true
+
+                        },
+
+                        {
+                            label:
+                                "Viscosity cP",
+
+                            data: [
+                                before,
+                                (
+                                    before +
+                                    after
+                                ) / 2,
+                                after
+                            ],
+
+                            tension:
+                                .3,
+
+                            borderColor:
+                                "#5d91a8"
+
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    scales: {
+
+                        x: {
+                            ticks: {
+                                color:
+                                    "#7f898e"
+                            },
+
+                            grid: {
+                                color:
+                                    "#242d31"
+                            }
+                        },
+
+                        y: {
+                            ticks: {
+                                color:
+                                    "#7f898e"
+                            },
+
+                            grid: {
+                                color:
+                                    "#242d31"
+                            }
+                        }
+
+                    },
+
+                    plugins: {
+
+                        legend: {
+
+                            labels: {
+                                color:
+                                    "#bfc6c9"
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   PRODUCTION CHART
+========================================================= */
+
+function buildProductionChart(
+    result
+) {
+
+    const canvas =
+        document.getElementById(
+            "productionChart"
+        );
+
+
+    if (
+        productionChart
+    ) {
+
+        productionChart.destroy();
+
+    }
+
+
+    const current =
+        Number(
+            result.currentState
+                ?.currentOilProductionBopd
+        ) || 100;
+
+
+    const predicted =
+        Number(
+            result.performance
+                ?.predictedProductionBopd
+        ) || current;
+
+
+    const cutoff =
+        Number(
+            result.integratedDecision
+                ?.production
+                ?.cutoffBopd
+        ) ||
+        current * .45;
+
+
+    const days =
+        Math.max(
+            7,
+            Math.round(
+                Number(
+                    result.integratedDecision
+                        ?.production
+                        ?.expectedProductionDays
+                ) || 30
+            )
+        );
+
+
+    const labels = [];
+
+    const production = [];
+
+
+    for (
+        let day = 0;
+        day <= days;
+        day++
+    ) {
+
+        labels.push(
+            `Day ${day}`
+        );
+
+
+        if (
+            day === 0
+        ) {
+
+            production.push(
+                current
+            );
+
+        }
+        else {
+
+            const decline =
+                Math.pow(
+                    .985,
+                    day
+                );
+
+
+            production.push(
+                Math.max(
+                    cutoff,
+                    cutoff +
+                    (
+                        predicted -
+                        cutoff
+                    ) * decline
+                )
+            );
+
+        }
+
+    }
+
+
+    productionChart =
+        new Chart(
+            canvas,
+            {
+
+                type:
+                    "line",
+
+                data: {
+
+                    labels,
+
+                    datasets: [
+
+                        {
+                            label:
+                                "Predicted Production",
+
+                            data:
+                                production,
+
+                            borderColor:
+                                "#e5a93a",
+
+                            backgroundColor:
+                                "rgba(229,169,58,.08)",
+
+                            fill:
+                                true,
+
+                            tension:
+                                .3
+
+                        },
+
+                        {
+                            label:
+                                "Production Cut-off",
+
+                            data:
+                                labels.map(
+                                    () =>
+                                        cutoff
+                                ),
+
+                            borderColor:
+                                "#b96b3b",
+
+                            borderDash:
+                                [5,5],
+
+                            pointRadius:
+                                0
+
+                        }
+
+                    ]
+
+                },
+
+                options: {
+
+                    responsive:
+                        true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    scales: {
+
+                        x: {
+                            ticks: {
+                                color:
+                                    "#7f898e"
+                            },
+
+                            grid: {
+                                color:
+                                    "#242d31"
+                            }
+                        },
+
+                        y: {
+                            ticks: {
+                                color:
+                                    "#7f898e"
+                            },
+
+                            grid: {
+                                color:
+                                    "#242d31"
+                            }
+                        }
+
+                    },
+
+                    plugins: {
+
+                        legend: {
+
+                            labels: {
+                                color:
+                                    "#bfc6c9"
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+loadWell();
+
+</script>
+
+</body>
+
+</html>
