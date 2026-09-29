@@ -578,359 +578,601 @@ nav button:hover {
 }
 
 
+/* =========================================================
+   DIGITAL TWIN WELL CROSS-SECTION
+========================================================= */
+
 .field {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
 
-    width:
-        100%;
-
-    height:
-        100%;
-
-    position:
-        relative;
-
-    overflow:
-        hidden;
-
-    border-left:
-        1px solid var(--line);
-
-    border-bottom:
-        1px solid var(--line);
+    border-left: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
 
     background:
         linear-gradient(
             to bottom,
-            #11191d 0%,
-            #0b1013 58%,
-            #16110b 58%,
-            #24190d 100%
+            #10171a 0%,
+            #10171a 38%,
+            #19120c 38%,
+            #24170d 100%
+        );
+}
+
+.twin-visual {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+
+/* -------------------------
+   TOP STATUS
+------------------------- */
+
+.twin-status {
+    position: absolute;
+    top: 24px;
+    left: 25px;
+    right: 25px;
+
+    display: flex;
+    justify-content: space-between;
+
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid #344047;
+
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 1.2px;
+}
+
+.twin-status span {
+    color: var(--muted);
+}
+
+.twin-status strong {
+    color: var(--amber);
+    font-weight: 500;
+}
+
+
+/* -------------------------
+   SURFACE
+------------------------- */
+
+.surface-label {
+    position: absolute;
+    top: 75px;
+    left: 32px;
+
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 1px;
+
+    color: #718087;
+}
+
+
+/* -------------------------
+   WELLHEAD
+------------------------- */
+
+.wellhead-box {
+    position: absolute;
+
+    top: 93px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 70px;
+    height: 85px;
+}
+
+.wellhead-top {
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 55px;
+    height: 13px;
+
+    border: 2px solid #758188;
+}
+
+.wellhead-body {
+    position: absolute;
+
+    top: 13px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 38px;
+    height: 52px;
+
+    border-left: 3px solid #758188;
+    border-right: 3px solid #758188;
+
+    background: rgba(20,28,32,.5);
+}
+
+.wellhead-base {
+    position: absolute;
+
+    bottom: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 70px;
+    height: 5px;
+
+    background: var(--amber);
+}
+
+
+/* -------------------------
+   WELLBORE
+------------------------- */
+
+.wellbore {
+    position: absolute;
+
+    top: 173px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 18px;
+    height: 315px;
+
+    border-left: 2px solid #657178;
+    border-right: 2px solid #657178;
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(255,255,255,.02),
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.02)
         );
 }
 
 
-.sun {
+/* -------------------------
+   SRP ROD
+------------------------- */
 
-    position:
-        absolute;
+.srp-rod {
+    position: absolute;
 
-    width:
-        170px;
+    top: 172px;
+    left: 50%;
 
-    height:
-        170px;
+    transform: translateX(-50%);
 
-    border-radius:
-        50%;
+    width: 4px;
+    height: 270px;
 
-    background:
-        rgba(229,169,58,.10);
+    background: #aab2b5;
 
-    border:
-        1px solid rgba(229,169,58,.3);
+    box-shadow:
+        0 0 7px rgba(238,231,217,.12);
+}
 
-    top:
-        80px;
+.pump-label {
+    position: absolute;
 
-    right:
-        70px;
+    top: 345px;
+    left: 50%;
+
+    transform: translateX(32px);
+
+    color: var(--muted);
+
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 1px;
+
+    white-space: nowrap;
 }
 
 
-.horizon {
+/* -------------------------
+   PUMP
+------------------------- */
 
-    position:
-        absolute;
+.pump {
+    position: absolute;
 
-    left:
-        0;
+    top: 425px;
+    left: 50%;
 
-    right:
-        0;
+    transform: translateX(-50%);
 
-    top:
-        58%;
+    width: 65px;
+    height: 45px;
+}
 
-    height:
-        1px;
+.pump-body {
+    position: absolute;
 
-    background:
-        var(--copper);
+    left: 12px;
+    top: 0;
+
+    width: 40px;
+    height: 30px;
+
+    border: 2px solid #9ca5a8;
+
+    background: #12191d;
+}
+
+.pump-intake {
+    position: absolute;
+
+    left: 19px;
+    bottom: 0;
+
+    width: 27px;
+    height: 16px;
+
+    border-left: 2px solid #9ca5a8;
+    border-right: 2px solid #9ca5a8;
 }
 
 
-.ground-line {
+/* -------------------------
+   RESERVOIR
+------------------------- */
 
-    position:
-        absolute;
+.reservoir-label {
+    position: absolute;
 
-    left:
-        0;
+    top: 205px;
+    left: 28px;
 
-    right:
-        0;
+    font-family: var(--mono);
+    font-size: 8px;
 
-    top:
-        70%;
+    letter-spacing: 1px;
 
-    border-top:
-        1px dashed #63472b;
+    color: #718087;
+}
+
+.reservoir-layer {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    border-top: 1px dashed rgba(180,125,62,.35);
+}
+
+.layer-one {
+    top: 315px;
+}
+
+.layer-two {
+    top: 475px;
 }
 
 
-.well-head {
+/* -------------------------
+   HEATED ZONE
+------------------------- */
 
-    position:
-        absolute;
+.heated-zone {
+    position: absolute;
 
-    left:
-        50%;
+    left: 50%;
+    top: 330px;
 
-    top:
-        26%;
+    transform: translateX(-50%);
 
-    transform:
-        translateX(-50%);
+    width: 230px;
+    height: 170px;
 
-    width:
-        60px;
-
-    height:
-        120px;
-
-    border:
-        3px solid #778087;
-
-    border-bottom:
-        5px solid var(--amber);
+    display: grid;
+    place-items: center;
 }
 
+.heat-ring {
+    position: absolute;
 
-.well-head::before {
+    left: 50%;
+    top: 50%;
 
-    content: "";
+    transform: translate(-50%, -50%);
 
-    position:
-        absolute;
+    border-radius: 50%;
 
-    left:
-        50%;
+    border: 1px solid rgba(229,169,58,.18);
 
-    transform:
-        translateX(-50%);
-
-    width:
-        120px;
-
-    height:
-        12px;
-
-    top:
-        30px;
-
-    border:
-        3px solid #778087;
-
+    animation: heatPulse 3s infinite ease-in-out;
 }
 
-
-.rod {
-
-    position:
-        absolute;
-
-    left:
-        50%;
-
-    transform:
-        translateX(-50%);
-
-    top:
-        0;
-
-    width:
-        4px;
-
-    height:
-        100%;
-
-    background:
-        #667278;
+.ring-one {
+    width: 90px;
+    height: 70px;
 }
 
+.ring-two {
+    width: 145px;
+    height: 110px;
 
-.steam {
-
-    position:
-        absolute;
-
-    left:
-        calc(50% + 40px);
-
-    top:
-        28%;
-
-    width:
-        120px;
-
-    height:
-        80px;
+    animation-delay: .5s;
 }
 
+.ring-three {
+    width: 210px;
+    height: 160px;
 
-.steam span {
-
-    position:
-        absolute;
-
-    width:
-        20px;
-
-    height:
-        20px;
-
-    border-radius:
-        50%;
-
-    border:
-        1px solid rgba(238,231,217,.35);
-
-    animation:
-        steamRise 4s infinite ease-out;
-
-    opacity:
-        0;
-}
-
-
-.steam span:nth-child(1) {
-    left: 10px;
-    animation-delay: 0s;
-}
-
-.steam span:nth-child(2) {
-    left: 40px;
     animation-delay: 1s;
 }
 
-.steam span:nth-child(3) {
-    left: 70px;
-    animation-delay: 2s;
+.heated-core {
+    position: relative;
+
+    width: 95px;
+    height: 75px;
+
+    display: grid;
+    place-items: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(229,169,58,.32),
+            rgba(185,107,59,.08) 65%,
+            transparent 75%
+        );
+
+    color: var(--amber);
+
+    font-family: var(--mono);
+    font-size: 8px;
+    line-height: 1.5;
+    letter-spacing: 1px;
+
+    z-index: 2;
 }
 
-
-@keyframes steamRise {
+@keyframes heatPulse {
 
     0% {
-        transform:
-            translateY(20px)
-            scale(.7);
-
-        opacity:
-            0;
+        transform: translate(-50%, -50%) scale(.95);
+        opacity: .35;
     }
 
-    30% {
-        opacity:
-            .4;
+    50% {
+        transform: translate(-50%, -50%) scale(1.04);
+        opacity: .8;
     }
 
     100% {
-        transform:
-            translateY(-100px)
-            scale(1.5);
-
-        opacity:
-            0;
+        transform: translate(-50%, -50%) scale(.95);
+        opacity: .35;
     }
 }
 
 
-.visual-label {
+/* -------------------------
+   STEAM INJECTION
+------------------------- */
 
-    position:
-        absolute;
+.steam-label {
+    position: absolute;
 
-    font-family:
-        var(--mono);
+    top: 235px;
+    left: 58px;
 
-    font-size:
-        9px;
+    color: var(--amber);
 
-    color:
-        #718087;
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 1px;
+}
 
-    letter-spacing:
-        1px;
+.steam-flow {
+    position: absolute;
+
+    top: 245px;
+    left: 72px;
+
+    color: var(--amber);
+
+    font-family: var(--heading);
+    font-size: 32px;
+
+    animation: steamDown 2s infinite ease-in-out;
+}
+
+@keyframes steamDown {
+
+    0% {
+        transform: translateY(-4px);
+        opacity: .45;
+    }
+
+    50% {
+        transform: translateY(6px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-4px);
+        opacity: .45;
+    }
 }
 
 
-.visual-label.one {
-    top: 18%;
-    left: 8%;
+/* -------------------------
+   OIL FLOW
+------------------------- */
+
+.oil-flow {
+    position: absolute;
+
+    color: #c58a42;
+
+    font-family: var(--heading);
+    font-size: 24px;
+
+    animation: oilUp 2.5s infinite ease-in-out;
 }
 
-.visual-label.two {
-    top: 53%;
-    left: 8%;
+.oil-one {
+    left: 42%;
+    top: 420px;
 }
 
-.visual-label.three {
-    bottom: 12%;
-    right: 8%;
+.oil-two {
+    left: 46%;
+    top: 390px;
+    animation-delay: .7s;
 }
 
+.oil-three {
+    left: 51%;
+    top: 410px;
+    animation-delay: 1.2s;
+}
+
+@keyframes oilUp {
+
+    0% {
+        transform: translateY(8px);
+        opacity: .25;
+    }
+
+    50% {
+        transform: translateY(-7px);
+        opacity: .85;
+    }
+
+    100% {
+        transform: translateY(8px);
+        opacity: .25;
+    }
+}
+
+
+/* -------------------------
+   PRODUCTION LABEL
+------------------------- */
+
+.production-label {
+    position: absolute;
+
+    right: 30px;
+    top: 390px;
+
+    color: var(--sand);
+
+    font-family: var(--mono);
+    font-size: 8px;
+
+    letter-spacing: 1px;
+}
+
+
+/* -------------------------
+   PROCESS CHAIN
+------------------------- */
+
+.process-chain {
+    position: absolute;
+
+    left: 25px;
+    right: 25px;
+    bottom: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-top: 12px;
+
+    border-top: 1px solid #394349;
+}
+
+.process-chain div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.process-chain small {
+    font-family: var(--mono);
+
+    color: #68757b;
+
+    font-size: 7px;
+}
+
+.process-chain strong {
+    font-family: var(--heading);
+
+    color: var(--cream);
+
+    font-size: 16px;
+
+    letter-spacing: .5px;
+}
+
+.process-chain span {
+    color: var(--amber);
+
+    font-family: var(--heading);
+
+    font-size: 17px;
+}
+
+
+/* -------------------------
+   READOUT
+------------------------- */
 
 .visual-readout {
+    position: absolute;
 
-    position:
-        absolute;
+    bottom: 24px;
 
-    bottom:
-        25px;
+    left: 25px;
+    right: 25px;
 
-    left:
-        25px;
+    display: flex;
+    justify-content: space-between;
 
-    right:
-        25px;
+    padding-top: 12px;
 
-    display:
-        flex;
-
-    justify-content:
-        space-between;
-
-    border-top:
-        1px solid #394349;
-
-    padding-top:
-        12px;
+    border-top: 1px solid #394349;
 }
-
 
 .visual-readout span {
+    font-family: var(--mono);
 
-    font-family:
-        var(--mono);
+    font-size: 8px;
 
-    font-size:
-        9px;
-
-    color:
-        var(--muted);
+    color: var(--muted);
 }
-
 
 .visual-readout strong {
+    color: var(--amber);
 
-    color:
-        var(--amber);
-
-    font-weight:
-        500;
+    font-weight: 500;
 }
-
 
 /* =========================================================
    THREE OPTIONS
@@ -2336,60 +2578,247 @@ nav button:hover {
 
             <div class="hero-visual">
 
-                <div class="field">
+                                <div class="field">
 
-                    <div class="sun"></div>
+                    <div class="twin-visual">
 
-                    <div class="horizon"></div>
+                        <!-- TOP STATUS -->
 
-                    <div class="ground-line"></div>
+                        <div class="twin-status">
 
+                            <span>
+                                LIVE DIGITAL TWIN
+                            </span>
 
-                    <div class="well-head">
+                            <strong>
+                                CSS + SRP
+                            </strong>
 
-                        <div class="rod"></div>
-
-                    </div>
-
-
-                    <div class="steam">
-
-                        <span></span>
-                        <span></span>
-                        <span></span>
-
-                    </div>
+                        </div>
 
 
-                    <div class="visual-label one">
-                        SURFACE
-                    </div>
+                        <!-- SURFACE -->
 
-                    <div class="visual-label two">
-                        RESERVOIR
-                    </div>
-
-                    <div class="visual-label three">
-                        HEAVY-OIL ZONE
-                    </div>
+                        <div class="surface-label">
+                            SURFACE / WELLHEAD
+                        </div>
 
 
-                    <div class="visual-readout">
+                        <div class="wellhead-box">
 
-                        <span>
-                            FIELD
-                            <strong>BAGHEWALA</strong>
-                        </span>
+                            <div class="wellhead-top"></div>
 
-                        <span>
-                            API
-                            <strong>17–19°</strong>
-                        </span>
+                            <div class="wellhead-body"></div>
 
-                        <span>
-                            TEMP
-                            <strong>46–48°C</strong>
-                        </span>
+                            <div class="wellhead-base"></div>
+
+                        </div>
+
+
+                        <!-- STEAM INJECTION -->
+
+                        <div class="steam-label">
+                            STEAM INJECTION
+                        </div>
+
+
+                        <div class="steam-flow">
+                            ↓
+                        </div>
+
+
+                        <!-- WELLBORE -->
+
+                        <div class="wellbore"></div>
+
+
+                        <!-- SRP ROD -->
+
+                        <div class="srp-rod"></div>
+
+
+                        <div class="pump-label">
+                            SRP / ARTIFICIAL LIFT
+                        </div>
+
+
+                        <!-- PUMP -->
+
+                        <div class="pump">
+
+                            <div class="pump-body"></div>
+
+                            <div class="pump-intake"></div>
+
+                        </div>
+
+
+                        <!-- RESERVOIR -->
+
+                        <div class="reservoir-label">
+                            RESERVOIR
+                        </div>
+
+
+                        <div class="reservoir-layer layer-one"></div>
+
+                        <div class="reservoir-layer layer-two"></div>
+
+
+                        <!-- HEATED HEAVY-OIL ZONE -->
+
+                        <div class="heated-zone">
+
+                            <div class="heat-ring ring-one"></div>
+
+                            <div class="heat-ring ring-two"></div>
+
+                            <div class="heat-ring ring-three"></div>
+
+
+                            <div class="heated-core">
+
+                                HEATED<br>
+                                HEAVY-OIL<br>
+                                ZONE
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- OIL FLOW -->
+
+                        <div class="oil-flow oil-one">
+                            ↑
+                        </div>
+
+                        <div class="oil-flow oil-two">
+                            ↑
+                        </div>
+
+                        <div class="oil-flow oil-three">
+                            ↑
+                        </div>
+
+
+                        <!-- PRODUCTION -->
+
+                        <div class="production-label">
+                            OIL PRODUCTION
+                        </div>
+
+
+                        <!-- PROCESS CHAIN -->
+
+                        <div class="process-chain">
+
+                            <div>
+
+                                <small>
+                                    01
+                                </small>
+
+                                <strong>
+                                    STEAM
+                                </strong>
+
+                            </div>
+
+
+                            <span>
+                                →
+                            </span>
+
+
+                            <div>
+
+                                <small>
+                                    02
+                                </small>
+
+                                <strong>
+                                    HEAT
+                                </strong>
+
+                            </div>
+
+
+                            <span>
+                                →
+                            </span>
+
+
+                            <div>
+
+                                <small>
+                                    03
+                                </small>
+
+                                <strong>
+                                    SRP
+                                </strong>
+
+                            </div>
+
+
+                            <span>
+                                →
+                            </span>
+
+
+                            <div>
+
+                                <small>
+                                    04
+                                </small>
+
+                                <strong>
+                                    OIL
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- FIELD READOUT -->
+
+                        <div class="visual-readout">
+
+                            <span>
+
+                                FIELD
+
+                                <strong>
+                                    BAGHEWALA
+                                </strong>
+
+                            </span>
+
+
+                            <span>
+
+                                API
+
+                                <strong>
+                                    17–19°
+                                </strong>
+
+                            </span>
+
+
+                            <span>
+
+                                TEMP
+
+                                <strong>
+                                    46–48°C
+                                </strong>
+
+                            </span>
+
+                        </div>
 
                     </div>
 
